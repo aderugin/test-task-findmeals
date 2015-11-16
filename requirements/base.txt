@@ -1,0 +1,4 @@
+# Base apps
+psycopg2
+Django>1.8
+django-grappelli

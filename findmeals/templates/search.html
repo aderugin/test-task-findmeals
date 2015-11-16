@@ -1,0 +1,63 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html ng-app="Search">
+    <head>
+        <title>Search</title>
+        <link href="{% static "css/bootstrap.css" %}" rel="stylesheet">
+        <link href="{% static "css/app.css" %}" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container" ng-controller="SearchController">
+            <h1>Поиск рецептов</h1>
+            <div class="well">
+                <form ng-submit="submitForm()" class="js-form">
+                    <div class="row form-group">
+                        <div class="col-xs-10">
+                            <input 
+                                name="q" 
+                                type="text" 
+                                class="form-control" 
+                                placeholder="Поиск рецетов"
+                                required
+                                ng-model="form.q"
+                            >
+                            <div class="js-include"></div>
+                            <div class="js-exclude"></div>
+                        </div>
+                        <div class="col-xs-2">
+                            <button class="btn btn-default" ng-click="form.submtiForm()">Найти</button>
+                        </div>
+                        <div class="col-xs-12 js-ingredients"></div>
+                    </div>
+                </form>
+                <div class="row">
+                    <div class="col-md-3 form-inline">
+                        <label for="">Добавить ингредиент</label>
+                        <input type="text" placeholder="Добавить" class="form-control js-autocomplete js-autocomplete-include">
+                    </div>
+                    <div class="col-md-3 form-inline">
+                        <label for="">Исключить ингредиент</label>
+                        <input type="text" placeholder="Исключить" class="form-control js-autocomplete js-autocomplete-exclude">
+                    </div>
+                </div>
+            </div>
+
+            <div ng-show="recipes">
+                <h2>Результаты поиска по запросу "{$form.q$}"</h2>
+                <div class="row">
+                    <div class="col-md-3 recipe" ng-repeat="recipe in recipes">
+                        <h4>Рецепт "{$recipe.title$}"</h4>
+                        Ингредиенты:
+                        <ul>
+                            <li ng-repeat="ingredient in recipe.ingredients">{$ingredient$}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="{% static "js/angular.min.js" %}"></script>
+        <script type="text/javascript" src="{% static "js/jquery-2.1.4.min.js" %}"></script>
+        <script type="text/javascript" src="{% static "js/jquery.autocomplete.min.js" %}"></script>
+        <script type="text/javascript" src="{% static "js/app.js" %}"></script>
+    </body>
+</html>
